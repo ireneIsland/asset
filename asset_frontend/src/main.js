@@ -4,6 +4,9 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+// bootstrap相關元件
+import BootstrapVue from 'bootstrap-vue'
+
 // 訊息相關元件
 import Snotify, { SnotifyPosition } from 'vue-snotify'
 
@@ -30,7 +33,8 @@ Vue.config.productionTip = false
 // 啟用套件
 Vue.use(VueAxios, axios)
 Vue.use(Snotify, snotify_options)
-Vue.use(VeeValidate);
+Vue.use(VeeValidate)
+Vue.use(BootstrapVue)
 
 // 設定元件
 Vue.component('Loading', Loading)

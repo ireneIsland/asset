@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Asterisk from '@/components/Asterisk.vue';
+  import Asterisk from '@/components/Asterisk.vue';
   import Navbar from '@/components/Navbar.vue';
   import Sidebar from '@/components/Sidebar.vue';
   import Footer from '@/components/Footer.vue'
@@ -48,7 +48,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
-.cus-page-1 {
+.cus-mainPage {
   text-align: left;
 }
+.cus-input {   
+  margin-left: 1em;
+  margin-right: 3em
+}
+
 </style>

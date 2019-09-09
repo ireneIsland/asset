@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import AssetReg from './views/AssetReg.vue'
+import AssetQuery from './views/AssetQuery.vue'
+import AssetDetail from './views/AssetDetail.vue'
 import SystemConfig from './views/SystemConfig.vue'
 
 Vue.use(Router)
@@ -17,6 +19,16 @@ export default new Router({
       path: '/assetreg',
       name: 'AssetReg',
       component: AssetReg
+    },
+    {
+      path: '/assetquery',
+      name: 'AssetQuery',
+      component: AssetQuery
+    },
+    {
+      path: '/assetdetail',
+      name: 'Assetdetail',
+      component: AssetDetail
     },
     {
       path: '/systemconfig',
