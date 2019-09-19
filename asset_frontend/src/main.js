@@ -20,7 +20,7 @@ import VeeValidate from 'vee-validate';
 // snotify 設定
 const snotify_options = {
   toast: {
-    position: SnotifyPosition.leftBottom,
+    position: SnotifyPosition.rightBottom,
     showProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true

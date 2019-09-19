@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -15,17 +19,66 @@ import com.island.asset.domain.AttachDoc;
 
 @Component("FileUtils")
 public class FileUtilsHandler {
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private FileUtilsHandler fuh;
+	
+	/**
+	 * 上傳多筆檔案
+	 * 將增值過的流水編號回傳
+	 * @param files
+	 * @param seqs
+	 * @param assetNo
+	 * @return
+	 * @throws Exception 
+	 */
+	public List<Object> uploadFileList(MultipartFile[] files, String[] seqs, String assetNo) throws Exception {
+		logger.info("upload AttachDocs Start!");
+		logger.info("total of ["+ seqs.length +"] files are ready to upload");
+		List<Object> list = new ArrayList<>();
+		for(int i=0; i<seqs.length; i++) {
+    		Map<String, Object> map = new HashMap<>();
+    		String filePath = fuh.uploadFile(files[i], assetNo);
+    		
+    		map.put("seq", seqs[i]);
+    		map.put("path", filePath);
+    		list.add(map);
+    	} 
+		
+		return list;
+	}
+	
+	/**
+	 * 刪除多筆檔案
+	 * @param attachDocList
+	 */
+	public void deleteAttachDocList(List<AttachDoc> attachDocList) {
+		logger.info("delete AttachDocs Start!");
 
-	public String uploadFile(MultipartFile files, String assetNo) {
+		for (AttachDoc ad : attachDocList) {
 
-		FileUtilsHandler fuh = new FileUtilsHandler();
+			if (!ad.getPath().isEmpty() && ad.getPath() != null) {
+				fuh.deleteFile(ad.getPath());
+			}
+		}
+	}
+
+	/**
+	 * 上傳一筆檔案
+	 * @param files
+	 * @param assetNo
+	 * @return
+	 * @throws Exception 
+	 */
+	public String uploadFile(MultipartFile files, String assetNo) throws Exception {
 
 		String cusPath = fuh.settingPath();
 		String fileName = assetNo + "_" + files.getOriginalFilename();
 
 		File dest = new File(cusPath, fileName);
-		System.out.println("上傳路徑: " + dest);
-
+		logger.info("upload Path: " + dest);
 		/**
 		 * 判斷目錄是否存在
 		 */
@@ -40,36 +93,38 @@ public class FileUtilsHandler {
 			files.transferTo(dest);
 
 		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("檔案上傳失敗");
+			logger.info(dest + "Upload operation failed.");
+			logger.error(e.getMessage());
+			throw e;
 		}
 
-		System.out.println("upload success.");
-		System.out.println("檔案名稱: " + fileName);
+		logger.info("upload success.");
 		return fileName.toString();
 	}
 
+	/**
+	 * 刪除一筆檔案
+	 * @param fileName
+	 */
 	public void deleteFile(String fileName) {
-		
-		FileUtilsHandler fuh = new FileUtilsHandler();
+
 		String cusPath = fuh.settingPath();
 
 		try {
 
 			File file = new File(cusPath, fileName);
-			System.out.println(file);
 
 			if (file.delete()) {
-				System.out.println(file.getName() + " is deleted!");
+				logger.info(file.getName() + " is deleted!");
 			} else {
-				System.out.println("Delete operation is failed.");
+				logger.error("Delete operation is failed.");
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 	}
-	
 
 	/**
 	 * 取得專案路徑&設定存放路徑
@@ -84,21 +139,9 @@ public class FileUtilsHandler {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return null;
 	}
 
-	public void deleteAttachDocList(List<AttachDoc> attachDocList) {
-		
-		System.out.println("執行刪除動作");
-		FileUtilsHandler fileUtilsHandler = new FileUtilsHandler();
-		
-		for(AttachDoc ad : attachDocList) {
-			
-			if(!ad.getPath().isEmpty() && ad.getPath() != null) {
-				fileUtilsHandler.deleteFile(ad.getPath());
-			}
-		}
-		
-	}
 }

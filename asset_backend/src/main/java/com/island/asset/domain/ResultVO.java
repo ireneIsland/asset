@@ -1,5 +1,8 @@
 package com.island.asset.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ResultVO {
 
     private Boolean success = true;

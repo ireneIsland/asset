@@ -1,7 +1,7 @@
 --登入資產
 CREATE OR REPLACE FUNCTION regAsset
 (
- status ASSET.STATUS %TYPE,
+ assetNo ASSET.ASSET_NO %TYPE,
  assetType ASSET.ASSET_TYPE %TYPE,
  assetDesc ASSET.ASSET_DESC %TYPE,
  loc ASSET.LOCATION %TYPE,
@@ -11,18 +11,13 @@ CREATE OR REPLACE FUNCTION regAsset
  lmUser ASSET.LM_USER %TYPE
 ) RETURN VARCHAR2
 IS
- assetNo ASSET.ASSET_NO %TYPE;
- chk_assetNo ASSET.ASSET_NO %TYPE;
+ status ASSET.STATUS %TYPE := '庫存';
  p_date date := SYSDATE; 
  p_status varchar2(20);
 BEGIN
---  從系統取得 資產編號
-  SELECT sys_item_value1 INTO assetNo FROM SYSTEM_CONFIG WHERE SYS_ITEM_ID = 'asset_no_end';
---  檢查資產編號
-  chk_assetNo := CHK_ASSET_NO(assetNo);
-  
+
    INSERT INTO ASSET VALUES (
-  chk_assetNo,
+  assetNo,
   status, 
   assetType, 
   assetDesc, 
@@ -35,14 +30,14 @@ BEGIN
   lmUser);
     
 --    新增完畢後更新資產編號
-        UPDATE SYSTEM_CONFIG SET sys_item_value1 = chk_assetNo WHERE  SYS_ITEM_ID = 'asset_no_end';
+        UPDATE SYSTEM_CONFIG SET sys_item_value1 = assetNo WHERE  SYS_ITEM_ID = 'asset_no_end';
 --     新增一筆歷史紀錄
-        insert into ASSET_HISTORY values (chk_assetNo, '入帳', assetDesc,  '',  loc, loc, assetNoParent, assignee, assignee, amount, p_date, lmUser);
+        insert into ASSET_HISTORY values (assetNo, '庫存', assetDesc,  '',  loc, loc, assetNoParent, assignee, assignee, amount, p_date, lmUser);
 
-  RETURN chk_assetNo;
+  RETURN 'success';
 EXCEPTION
     WHEN OTHERS THEN
-    RETURN 'regAsset function error';
+    RETURN 'fail';
 END regAsset;
 
 

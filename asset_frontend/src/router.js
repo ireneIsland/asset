@@ -10,6 +10,8 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+
+
     {
       path: '/', // 對應路徑
       name: 'home', // 元件呈現名稱
@@ -21,13 +23,13 @@ export default new Router({
       component: AssetReg
     },
     {
-      path: '/assetquery',
+      path: '/asset_query',
       name: 'AssetQuery',
       component: AssetQuery
     },
     {
-      path: '/assetdetail',
-      name: 'Assetdetail',
+      path: '/asset_detail/:assetNo',
+      name: 'AssetDetail',
       component: AssetDetail
     },
     {

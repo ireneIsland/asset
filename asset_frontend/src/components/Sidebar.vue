@@ -8,7 +8,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <h5><router-link class="nav-link" to="/assetquery">資產查詢</router-link></h5>
+              <h5><router-link class="nav-link" to="/asset_query">資產查詢</router-link></h5>
             </a>
           </li>
           <li class="nav-item">
@@ -17,7 +17,7 @@
           </li>
           <li class="nav-item"> 
             <a class="nav-link" href="#">
-              <h5><router-link class="nav-link" to="/assetdetail">資產異動</router-link></h5>
+              <h5><router-link class="nav-link" to="/">資產異動</router-link></h5>
             </a>
           </li>
           <li class="nav-item">

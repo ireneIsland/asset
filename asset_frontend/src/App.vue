@@ -52,8 +52,13 @@ export default {
   text-align: left;
 }
 .cus-input {   
-  margin-left: 1em;
   margin-right: 3em
 }
+.cus-label {
+  margin-right: 3em;
+}
 
+.table {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif, 'Microsoft JhengHei';
+}
 </style>

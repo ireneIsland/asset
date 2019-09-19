@@ -24,7 +24,6 @@ public class Asset {
         private List<AttachDoc> attachDocList = new ArrayList<>();
 
 
-
     public String getAssetNo() {
         return assetNo;
     }

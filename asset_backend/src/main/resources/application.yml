@@ -4,3 +4,9 @@ spring:
     data-username: TEST1
     data-password: 12345
     driver-class-name: oracle.jdbc.driver.OracleDriver
+    
+logging:
+  level:
+    root: info
+    com.island.asset: info
+  file: spring-boot-logger/island-asset

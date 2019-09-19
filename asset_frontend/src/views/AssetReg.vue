@@ -18,7 +18,7 @@
       <form class="text-left" @submit.prevent="formSubmit">
         <div class="row">
 
-          <!-- 右邊表單 -->
+          <!-- 左邊表單 -->
           <div class="col-md-6">
             <div class="form-group">
               <label for="iptAmount">金額</label>
@@ -52,7 +52,7 @@
             <div class="form-group">
               <label for="selAssetType">資產類別</label>
               <select class="form-control" ref="selAssetType" id="selAssetType" name="assetType" v-model="tempAsset.assetType">
-                <!-- <option disabled value="">請選擇</option> -->
+                <option disabled value="">請選擇</option>
                 <option v-for="item in defaultVal.assetTypeList" :value="item" :key="item.seq">
                   {{item}}
                 </option>
@@ -64,7 +64,7 @@
               <select class="form-control" ref="selLocation" id="selLocation" name="location" v-model="tempAsset.location"
                 v-validate="'required'" 
                 :class="{'is-invalid':errors.has( 'location' )}">
-                <!-- <option disabled value="">請選擇</option> -->
+                <option disabled value="">請選擇</option>
                 <option v-for="item in defaultVal.locationList" :value="item" :key="item.seq">
                   {{item}}
                 </option>
@@ -85,7 +85,7 @@
           <!-- 空一列 -->
           <div class="col-md-1"></div>
 
-          <!-- 左邊表單 -->
+          <!-- 右邊表單 -->
           <div class="col-lg-5">
             <br>
             <button type="button" class="btn btn-outline-info" @click="addNewAttachDocForm">+</button><span
@@ -116,12 +116,7 @@
               </div>
             </div>
 
-
           </div>
-
-          
-
-          
 
         </div>
       </form>
@@ -244,7 +239,7 @@
               vm.requestHandler();
             }
           })
-          .catch((error) => {
+          .catch((error) => { 
             vm.errorNotify("系統流水號更新失敗，請確認伺服器是否異常");
             this.isLoading = false;
           })

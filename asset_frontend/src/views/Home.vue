@@ -8,8 +8,8 @@
       </div>
 
       <form class="needs-validation" enctype="multipart/form-data">
+      
         <div class="row">
-
           <!-- 左6 -->
           <div class="col-md-6">
           </div>

@@ -59,7 +59,7 @@ CREATE TABLE ATTACH_DOC (
  SEQ                         INTEGER NOT NULL,
  DOC_NAME                    VARCHAR2(50) NOT NULL,
  PATH                        VARCHAR2(100),
- ASSET_DESC                  NVARCHAR2(50),
+ DOC_DESC                  NVARCHAR2(50),
  LM_TIME                     DATE NOT NULL,
  LM_USER                     VARCHAR2(10) NOT NULL,
  CONSTRAINT ATTACH_DOC_FK FOREIGN KEY (ASSET_NO) REFERENCES ASSET (ASSET_NO),
@@ -111,6 +111,7 @@ CREATE TABLE SYSTEM_CONFIG (
  NOMAXVALUE
  NOCYCLE
  NOCACHE;
+
  
 INSERT INTO SYSTEM_CONFIG VALUES ('asset_type', '資產類別', TO_CHAR(asset_type_seq.NEXTVAL), 'IT', '資訊設備：PC, NB…', '', SYSDATE, 'is0240');
 INSERT INTO SYSTEM_CONFIG VALUES ('asset_type', '資產類別', TO_CHAR(asset_type_seq.NEXTVAL), 'OA', '辦公室設備：桌子，椅子…', '', SYSDATE, 'is0240');
@@ -125,35 +126,39 @@ INSERT INTO SYSTEM_CONFIG VALUES ('retirement_type', '報廢方式', TO_CHAR(ret
 INSERT INTO SYSTEM_CONFIG VALUES ('retirement_type', '報廢方式', TO_CHAR(retirement_type_seq.NEXTVAL), '銷毀', '', '', SYSDATE, 'is0240');
 INSERT INTO SYSTEM_CONFIG VALUES ('retirement_type', '報廢方式', TO_CHAR(retirement_type_seq.NEXTVAL), '遺失', '', '', SYSDATE, 'is0240');
 
+INSERT INTO SYSTEM_CONFIG VALUES ('status', '狀態', 1, '庫存', '', '', SYSDATE, 'is0240');
+INSERT INTO SYSTEM_CONFIG VALUES ('status', '狀態', 2, '使用', '', '', SYSDATE, 'is0240');
+INSERT INTO SYSTEM_CONFIG VALUES ('status', '狀態', 3, '報廢', '', '', SYSDATE, 'is0240');
+
 --SELECT * FROM SYSTEM_CONFIG;
 
 
 -- ============================================================
 --組織資料
-CREATE TABLE ORG_DATA (
- ORG_ID                 VARCHAR2(20) NOT NULL,
- ORG_NAME               NVARCHAR2(50) NOT NULL,
- BOSS_ID                VARCHAR2(10) NOT NULL,
- BOSS_NAME              NVARCHAR2(20) NOT NULL,
- ORG_LEVEL              VARCHAR2(10) NOT NULL,
- AREA                   NVARCHAR2(20),
- ORG_ID_PARENT          VARCHAR2(20),
- ORG_SHORTNAME          NVARCHAR2(50),
- ORG_LEVEL_NAME         NVARCHAR2(50),
- BOSS_TITLE             NVARCHAR2(20),
- BOSS_ID_PARENT         VARCHAR2(10),
- COMPANY                NVARCHAR2(20),
- LM_TIME                DATE NOT NULL,
- LM_USER                VARCHAR2(10) NOT NULL,
- 
- CONSTRAINT ORG_DATA_PK PRIMARY KEY (ORG_ID));
-
- CREATE SEQUENCE org_data_seq
- INCREMENT BY 1
- START WITH 1
- NOMAXVALUE
- NOCYCLE
- NOCACHE;
+--CREATE TABLE ORG_DATA (
+-- ORG_ID                 VARCHAR2(20) NOT NULL,
+-- ORG_NAME               NVARCHAR2(50) NOT NULL,
+-- BOSS_ID                VARCHAR2(10) NOT NULL,
+-- BOSS_NAME              NVARCHAR2(20) NOT NULL,
+-- ORG_LEVEL              VARCHAR2(10) NOT NULL,
+-- AREA                   NVARCHAR2(20),
+-- ORG_ID_PARENT          VARCHAR2(20),
+-- ORG_SHORTNAME          NVARCHAR2(50),
+-- ORG_LEVEL_NAME         NVARCHAR2(50),
+-- BOSS_TITLE             NVARCHAR2(20),
+-- BOSS_ID_PARENT         VARCHAR2(10),
+-- COMPANY                NVARCHAR2(20),
+-- LM_TIME                DATE NOT NULL,
+-- LM_USER                VARCHAR2(10) NOT NULL,
+-- 
+-- CONSTRAINT ORG_DATA_PK PRIMARY KEY (ORG_ID));
+--
+-- CREATE SEQUENCE org_data_seq
+-- INCREMENT BY 1
+-- START WITH 1
+-- NOMAXVALUE
+-- NOCYCLE
+-- NOCACHE;
 
  -- ============================================================
 --員工資料
@@ -161,25 +166,32 @@ CREATE TABLE EMP_DATA (
  EMP_ID           VARCHAR2(10) NOT NULL,
  PASSWORD         NVARCHAR2(20) NOT NULL,
  EMP_NAME         NVARCHAR2(20) NOT NULL,
- ENTRY_DATE       DATE NOT NULL,
- JOB_TITLE        NVARCHAR2(20) NOT NULL,
- ORG_ID           VARCHAR2(20) NOT NULL,
- ORG_NAME         NVARCHAR2(50) NOT NULL,
- BOSS_ID          VARCHAR2(10) NOT NULL,
- BOSS_NAME        NVARCHAR2(20) NOT NULL,
- COMPANY          NVARCHAR2(20),
- INSERVICE        CHAR(1) NOT NULL,
- EMAIL           VARCHAR2(20),
- TEL_NO           NVARCHAR2(50),
- LEVEL_DATE       DATE,
- LM_TIME          DATE NOT NULL,
- LM_USER          VARCHAR2(10) NOT NULL,
+-- ENTRY_DATE       DATE NOT NULL,
+-- JOB_TITLE        NVARCHAR2(20) NOT NULL,
+-- ORG_ID           VARCHAR2(20) NOT NULL,
+-- ORG_NAME         NVARCHAR2(50) NOT NULL,
+-- BOSS_ID          VARCHAR2(10) NOT NULL,
+-- BOSS_NAME        NVARCHAR2(20) NOT NULL,
+-- COMPANY          NVARCHAR2(20),
+-- INSERVICE        CHAR(1) NOT NULL,
+-- EMAIL           VARCHAR2(20),
+-- TEL_NO           NVARCHAR2(50),
+-- LEVEL_DATE       DATE,
+-- LM_TIME          DATE NOT NULL,
+-- LM_USER          VARCHAR2(10) NOT NULL,
 -- CONSTRAINT EMP_DATA_FK FOREIGN KEY (ORG_ID) REFERENCES ORG_DATA (ORG_ID),
  CONSTRAINT EMP_DATA_PK PRIMARY KEY (EMP_ID));
 
- CREATE SEQUENCE emp_data_seq
- INCREMENT BY 1
- START WITH 1
- NOMAXVALUE
- NOCYCLE
- NOCACHE;
+-- CREATE SEQUENCE emp_data_seq
+-- INCREMENT BY 1
+-- START WITH 1
+-- NOMAXVALUE
+-- NOCYCLE
+-- NOCACHE;
+ 
+-- TO_CHAR(retirement_type_seq.NEXTVAL);
+ INSERT INTO EMP_DATA VALUES ('is0240', '1', '張文耀');
+ INSERT INTO EMP_DATA VALUES ('is0241', '2', '王小明');
+ INSERT INTO EMP_DATA VALUES ('is0242', '3', '李小玉');
+ INSERT INTO EMP_DATA VALUES ('is0256', '123', '總務');
+ commit;
