@@ -43,3 +43,22 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    console.log("check");
+
+    const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_EMP}/checkAccount`;
+    axios.get(api).then((response) => {
+      if(response.data.success){
+          next();  
+        } else {
+          next({
+            path: '/login',
+          });  
+        }
+      })
+  } else {
+    next();
+  }
+})

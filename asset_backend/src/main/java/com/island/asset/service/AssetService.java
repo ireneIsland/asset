@@ -37,7 +37,7 @@ public class AssetService {
     
     public ResultVO getAssetDetail(String assetNo) throws Exception {
     	result = null;
-    	return assetDao.findOneAssetDetail(assetNo);
+    	return assetDao.findAssetDetail(assetNo);
     }
     
 

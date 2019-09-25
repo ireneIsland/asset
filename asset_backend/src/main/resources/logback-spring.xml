@@ -12,7 +12,7 @@
 
     <appender name="fileErrorApp" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
+            <level>ERROR</level>
         </filter>
         <encoder>
             <pattern>
@@ -34,8 +34,10 @@
         </rollingPolicy>
     </appender>
     
-   	<root level="DEBUG">  
+   	<root level="INFO">  
         <appender-ref ref="consoleApp"/>
+    </root>
+    <root level="ERROR">  
         <appender-ref ref="fileErrorApp"/>
     </root>
 </configuration>

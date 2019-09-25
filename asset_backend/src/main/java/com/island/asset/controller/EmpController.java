@@ -19,5 +19,12 @@ public class EmpController {
     public ResultVO getAllEmpData() {
         return empSvc.getAllEmpIdAndName();
     }
+	
+	@GetMapping(value = "/checkAccount")
+	public ResultVO checkAccount() {
+		ResultVO resultVO = new ResultVO();
+		resultVO.setSuccess(false   );
+		return resultVO;
+	}
 
 }

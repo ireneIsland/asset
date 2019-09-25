@@ -4,7 +4,6 @@ import com.island.asset.domain.Asset;
 import com.island.asset.domain.AssetQueryForm;
 import com.island.asset.domain.ResultVO;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IAssetDao {
@@ -15,7 +14,7 @@ public interface IAssetDao {
 
     public List<Asset> findAll();
 
-    public ResultVO findOneAssetDetail(String assetNo) throws Exception;
+    public ResultVO findAssetDetail(String assetNo) throws Exception;
 
 
 }

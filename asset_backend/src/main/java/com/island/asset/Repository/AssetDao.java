@@ -45,7 +45,6 @@ public class AssetDao implements IAssetDao {
 		CallableStatement cstmt = null;
 
 		try {
-
 			logger.info("regAsset Start!");
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, username, password);
@@ -167,7 +166,7 @@ public class AssetDao implements IAssetDao {
 	}
 
 	@Override
-	public ResultVO findOneAssetDetail(String assetNo) throws Exception {
+	public ResultVO findAssetDetail(String assetNo) throws Exception {
 		
 		List<AttachDoc> list = new ArrayList<AttachDoc>();
 		ResultVO result = new ResultVO();
@@ -179,6 +178,9 @@ public class AssetDao implements IAssetDao {
 		
 		try {
 
+//			這邊SQL 需要修改
+//			若 ATTACH_DOC 無資料  會搜尋不到資料
+			
 			con = DriverManager.getConnection(url, username, password);
 			pstmt = con.prepareStatement("select a.*, b.seq, b.doc_name, b.path, b.doc_desc from ASSET a join ATTACH_DOC b  on a.asset_no = b.asset_no where a.asset_no =? ");
 			
